@@ -82,7 +82,7 @@ while True:
 
                 # post
                 print("post : " + str(tweet['id']))
-                webhook_url = config['develop']['WEBHOOK_URL']
+                webhook_url = config['prod']['WEBHOOK_URL']
                 r = requests.post(webhook_url, data=json.dumps(post_data), headers={'Content-Type': 'application/json'})
 
                 # if error
