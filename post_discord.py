@@ -1,11 +1,13 @@
 #! /home/pi/.pyenv/shims/python
 # -*- coding:utf-8 -*-
 import json, config
+import configparser
 import time
 import os
 import re
 import json
 import requests
+import sys
 from pprint import pprint
 
 # import logging
@@ -13,12 +15,14 @@ from pprint import pprint
 
 from requests_oauthlib import OAuth1Session
 
+
 CK = config.CONSUMER_KEY
 CS = config.CONSUMER_SECRET
 AT = config.ACCESS_TOKEN
 ATS = config.ACCESS_TOKEN_SECRET
 
 webhook_url = config.WEBHOOK_URL
+
 
 
 # debug run
@@ -31,7 +35,7 @@ while True:
     url = "https://api.twitter.com/1.1/lists/statuses.json"
     # url = "https://api.twitter.com/1.1/lists/list.json"
 
-    params ={'count' : 3, 'owner_screen_name' : 'deneeeeeeb', 'slug' : 'splaplayers'}
+    params ={'count' : 100, 'owner_screen_name' : 'deneeeeeeb', 'slug' : 'splaplayers'}
     # params ={'count' : 10, 'owner_screen_name' : 'deneeeeeeb', 'slug' : 'splamemo'}
 
     req = ""
@@ -87,6 +91,12 @@ while True:
                 # post
                 r = requests.post(webhook_url, data=json.dumps(payload_dic), headers={'Content-Type': 'application/json'})
                 print(r)
+                if r.status_code != 204:
+                    time.sleep(60)
+                    r = requests.post(webhook_url, data=json.dumps(payload_dic), headers={'Content-Type': 'application/json'})                    
+                    if r.status_code != 204:
+                        sys.exit(10)
+
 
 
 
@@ -97,5 +107,6 @@ while True:
     else:
         print("ERROR: %d" % req.status_code)
         print(req.json())
+        sys.exit(10)        
 
     time.sleep(60)
