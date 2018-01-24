@@ -1,3 +1,4 @@
+#! /home/pi/.pyenv/shims/python
 # -*- coding:utf-8 -*-
 import json, config
 import time
