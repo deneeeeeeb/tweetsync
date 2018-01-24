@@ -90,7 +90,7 @@ while True:
 
                     # wait & rerun
                     time.sleep(60)
-                    r = requests.post(webhook_url, data=json.dumps(payload_dic), headers={'Content-Type': 'application/json'})                    
+                    r = requests.post(webhook_url, data=json.dumps(post_data), headers={'Content-Type': 'application/json'})                    
 
                     # error end
                     if r.status_code != 204:
