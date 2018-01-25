@@ -1,4 +1,4 @@
-#! /home/pi/.pyenv/shims/python
+#! /home/pi/.pyenv/shims/python -u
 # -*- coding:utf-8 -*-
 import json
 import configparser
